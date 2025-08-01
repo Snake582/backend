@@ -10,14 +10,14 @@ export class UserController {
   constructor(private readonly userService: UserService) {}
 
   @Get('admin-only')
-  @UseGuards(AuthGuard)
+  @UseGuards(AuthGuard("jwt"))
   @Roles('admin') // 👈 cette route est réservée aux utilisateurs avec le rôle 'admin'
   getAdminData() {
     return 'Données réservées à l’admin';
   }
 
   @Get('me')
-  @UseGuards(AuthGuard)
+  @UseGuards(AuthGuard("jwt"))
   @Roles('user', 'admin') // 👈 les deux rôles peuvent y accéder
   getProfile() {
     return 'Données utilisateur ou admin';
@@ -29,6 +29,8 @@ export class UserController {
   }
 
   @Get()
+  @UseGuards(AuthGuard("jwt"))
+  @Roles('admin') // 👈 les deux rôles peuvent y accéder
   findAll() {
     return this.userService.findAll();
   }
