@@ -17,7 +17,7 @@ export class ProductService {
     return await this.productRepository.save(newProduct);
   }
 
-  async findAll() {
+  async findAll(): Promise<Product[]> {
     return await this.productRepository.find();
   }
 

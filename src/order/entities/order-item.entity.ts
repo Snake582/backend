@@ -15,8 +15,9 @@ export class OrderItem {
   @ManyToOne(() => Order, (order) => order.items)
   order: Order;
 
-  @ManyToOne(() => Product, (product) => product.orderItems)
+ @ManyToOne(() => Product, product => product.orderItems, { eager: true })
   product: Product;
+
 
   @Column()
   quantity: number;

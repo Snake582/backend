@@ -1,6 +1,5 @@
-
 import { OrderItem } from 'src/order/entities/order-item.entity';
-import { Entity, PrimaryGeneratedColumn, Column, OneToMany } from 'typeorm';
+import { Entity, PrimaryGeneratedColumn, Column, OneToMany, UpdateDateColumn, CreateDateColumn } from 'typeorm';
 
 @Entity()
 export class Product {
@@ -22,6 +21,15 @@ export class Product {
   @Column({ default: 0 })
   stock: number;
 
+  @Column('simple-array', { nullable: true })
+  secondaryImages?: string[];
+
   @OneToMany(() => OrderItem, (OrderItem) => OrderItem.product)
   orderItems: OrderItem[];
+
+  @CreateDateColumn({ type: 'timestamp' })
+  createdAt: Date;
+
+  @UpdateDateColumn({ type: 'timestamp' })
+  updatedAt: Date;
 }

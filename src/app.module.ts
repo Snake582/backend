@@ -8,7 +8,8 @@ import { ProductModule } from './product/product.module';
 import { OrderModule } from './order/order.module';
 import { StripeModule } from './stripe/stripe.module';
 import { ConfigModule } from '@nestjs/config';
-// Ensure @nestjs/config is installed: npm install @nestjs/config
+import { DashboardController } from './dashboard/dashboard.controller';
+import { DashboardModule } from './dashboard/dashboard.module';
 
 @Module({
   imports: [
@@ -30,8 +31,9 @@ import { ConfigModule } from '@nestjs/config';
       envFilePath: '.env',
     }),
     OrderModule,
-    StripeModule,],
-  controllers: [AppController],
+    StripeModule,
+    DashboardModule,],
+  controllers: [AppController, DashboardController],
   providers: [AppService],
 })
 export class AppModule {}
