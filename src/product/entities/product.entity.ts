@@ -1,5 +1,5 @@
 import { OrderItem } from 'src/order/entities/order-item.entity';
-import { Entity, PrimaryGeneratedColumn, Column, OneToMany, UpdateDateColumn, CreateDateColumn } from 'typeorm';
+import { Entity, Column, PrimaryGeneratedColumn, CreateDateColumn, UpdateDateColumn, OneToMany } from 'typeorm';
 
 @Entity()
 export class Product {
@@ -7,29 +7,33 @@ export class Product {
   id: number;
 
   @Column()
-  name: string;
+  alt: string; // texte alternatif
 
   @Column('text')
   description: string;
 
   @Column('decimal', { precision: 10, scale: 2 })
-  price: number;
+  prix: number;
 
   @Column()
-  image: string;
-
-  @Column({ default: 0 })
   stock: number;
+
+  @Column()
+  category: string;
+
+  @Column()
+  image: string; // ✅ minuscule
 
   @Column('simple-array', { nullable: true })
   secondaryImages?: string[];
 
-  @OneToMany(() => OrderItem, (OrderItem) => OrderItem.product)
-  orderItems: OrderItem[];
-
-  @CreateDateColumn({ type: 'timestamp' })
+   @CreateDateColumn()
   createdAt: Date;
 
-  @UpdateDateColumn({ type: 'timestamp' })
+  @UpdateDateColumn()
   updatedAt: Date;
+
+  @OneToMany(() => OrderItem, orderItem => orderItem.product)
+orderItems: OrderItem[];
+
 }
